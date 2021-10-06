@@ -1,16 +1,29 @@
 import React from 'react'
+import {List, Checkbox, IconButton} from "@mui/material"
+import CancelIcon from '@mui/icons-material/Cancel';
 
-function Todo({todo}) {
+function Todo({todo, toggleComplete, removeTodo}) {
+
+    function handleCheckBoxClick(){
+        toggleComplete(todo.id)
+    }
+
+    function handleButtonClick(){
+        removeTodo(todo.id)
+    }
+
     return (
-        <div style= {{display: 'flex'}}>
-            <input type="checkbox" />
-            <li style = {{
-                color: "red", 
+        <div className = "todo-row">
+            <Checkbox checked = {todo.completed} type="checkbox" onClick = {handleCheckBoxClick} style = {{color: "white"}}/>
+            <List style = {{
+                listStyleType: 'none',
+                color: "white",
+                fontWeight: "600", 
                 textDecoration : todo.completed ? "line-through" : null
                 }}>
                 {todo.task}
-            </li>
-            <button>X</button>
+            </List>
+            <IconButton onClick = {handleButtonClick}><CancelIcon style = {{color : "black"}}/></IconButton>
         </div>
     )
 }

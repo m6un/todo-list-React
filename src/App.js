@@ -1,11 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import TodoForm from './Components/TodoForm';
 import TodoList from './Components/TodoList';
 
+const LOCAL_STORAGE_KEY = "react-todo-list"
+
 function App() {
 
   const [todos, setTodos] = useState([])
+
+  useEffect(()=>{
+    const storageValues = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+    if(storageValues){
+      setTodos(storageValues)
+    }
+
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
+  }, [todos])
 
   const addTodo = (todo)=>{
 
@@ -13,12 +27,30 @@ function App() {
 
   }
 
+  const toggleComplete = (id)=>{
+    setTodos(
+      todos.map(todo=>{
+        if(todo.id === id){
+          return {
+            ...todo,
+            completed : !todo.completed
+          };
+        }
+        return todo;
+      })
+    )
+  }
+
+  function removeTodo(id){
+    setTodos(todos.filter((todo) => todo.id !== id))
+  }
+
   return (
     <div className="App">
       <header className = "App-header">
         <p>To do List</p>
         <TodoForm addTodo = {addTodo}/>
-        <TodoList todos = {todos}/>
+        <TodoList todos = {todos} toggleComplete = {toggleComplete} removeTodo = {removeTodo}/>
       </header>
 
 
