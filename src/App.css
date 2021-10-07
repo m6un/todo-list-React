@@ -10,6 +10,7 @@
         }
         
         .App {
+            position: relative;
             display: flex;
             flex-direction: column;
             justify-content: start;
@@ -87,4 +88,21 @@
         
         .todo-row:nth-child(4n + 3) {
             background: linear-gradient( 90deg, rgba(20, 159, 255, 1) 0%, rgba(17, 122, 255, 1) 100%);
+        }
+        
+        .main {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        
+        .footer {
+            position: absolute;
+            top: 90%;
+            color: blanchedalmond;
+            white-space: nowrap;
+        }
+        
+        .footer a {
+            color: black;
         }
